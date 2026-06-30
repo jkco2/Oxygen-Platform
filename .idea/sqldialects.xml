@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/resources/sql/00_database.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/resources/sql/01_sys_rbac.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/resources/sql/02_knowledge.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/resources/sql/03_chat.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/resources/sql/04_rag.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/resources/sql/05_operation_log.sql" dialect="MySQL" />
+    <file url="PROJECT" dialect="MySQL" />
+  </component>
+  <component name="SqlResolveMappings">
+    <file url="PROJECT" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;61ab559b-7bf3-49d8-a2ce-926e7164d3c0&quot;    },    &quot;group&quot;:{     &quot;@kind&quot;:&quot;schema&quot;,     &quot;node&quot;:{      &quot;name&quot;:{       &quot;@qname&quot;:&quot;oxygen_platform&quot;      }     }    }   }  } }}" />
+  </component>
+</project>

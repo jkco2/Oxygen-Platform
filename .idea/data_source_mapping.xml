@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$PROJECT_DIR$/resources/sql/00_database.sql" value="61ab559b-7bf3-49d8-a2ce-926e7164d3c0" />
+    <file url="file://$PROJECT_DIR$/resources/sql/01_sys_rbac.sql" value="61ab559b-7bf3-49d8-a2ce-926e7164d3c0" />
+    <file url="file://$PROJECT_DIR$/resources/sql/02_knowledge.sql" value="61ab559b-7bf3-49d8-a2ce-926e7164d3c0" />
+    <file url="file://$PROJECT_DIR$/resources/sql/03_chat.sql" value="61ab559b-7bf3-49d8-a2ce-926e7164d3c0" />
+    <file url="file://$PROJECT_DIR$/resources/sql/04_rag.sql" value="61ab559b-7bf3-49d8-a2ce-926e7164d3c0" />
+    <file url="file://$PROJECT_DIR$/resources/sql/05_operation_log.sql" value="61ab559b-7bf3-49d8-a2ce-926e7164d3c0" />
+  </component>
+</project>

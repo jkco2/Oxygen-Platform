@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ethercraft.mapper.AuthMapper">
+
+    <insert id="registerUser" parameterType="com.ethercraft.entity.User">
+        insert into sys_user(username, password, nickname, email, phone, avatar, status)
+        values (#{username}, #{password}, #{nickname}, #{email}, #{phone}, #{avatar}, #{status});
+    </insert>
+    <update id="updateLastLoginTimeByUsername" parameterType="java.lang.String">
+        update sys_user
+        set last_login_time = NOW()
+        where username = #{username}
+    </update>
+
+    <select id="getUserByUsername" resultType="com.ethercraft.entity.User" parameterType="java.lang.String">
+        select *
+        from sys_user
+        where username = #{username};
+    </select>
+
+    <select id="getUserById" resultType="com.ethercraft.entity.User" parameterType="java.lang.Long">
+        select *
+        from sys_user
+        where id = #{userId};
+    </select>
+
+    <select id="getRolesById" resultType="com.ethercraft.entity.Role" parameterType="java.lang.Long">
+        select sr.*
+        from sys_role sr
+        join sys_user_role sur
+        on sr.id = sur.role_id
+        where sur.user_id = #{userId}
+        and sr.deleted = 0
+        and sr.status = 'ACTIVE';
+    </select>
+
+    <select id="getPermissionsById" resultType="com.ethercraft.entity.Permission"
+            parameterType="java.lang.Long">
+        select distinct sp.*
+        from sys_permission sp
+        join sys_role_permission srp on sp.id = srp.permission_id
+        join sys_user_role sur on srp.role_id = sur.role_id
+        join sys_role sr on sr.id = sur.role_id
+        where sur.user_id = #{userId}
+        and sp.deleted = 0
+        and sp.status = 'ACTIVE'
+        and sr.deleted = 0
+        and sr.status = 'ACTIVE';
+    </select>
+
+</mapper>
