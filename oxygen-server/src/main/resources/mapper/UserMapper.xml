@@ -3,15 +3,80 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ethercraft.mapper.UserMapper">
+    <update id="updateUser" parameterType="com.ethercraft.entity.User">
+        update sys_user
+        set nickname = #{nickname}, phone = #{phone}, email = #{email}, avatar = #{avatar}
+        where id = #{id}
+    </update>
+
+    <update id="updateUserStatus">
+        update sys_user
+        set status = #{dto.status}
+        where id = #{userId}
+    </update>
+
+    <update id="updateUserPassword">
+        update sys_user
+        set password = #{newPassword}
+        where id = #{userId}
+    </update>
+
+    <delete id="deleteUserRolesByUserId" parameterType="java.lang.Long">
+        delete from sys_user_role
+        where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteUser" parameterType="java.lang.Long">
+        delete from sys_user
+        where id = #{userId}
+    </delete>
+
+    <select id="pageUsers" resultType="com.ethercraft.vo.UserPageVO">
+        select id,
+               username,
+               nickname,
+               email,
+               phone,
+               avatar,
+               status,
+               create_time,
+               last_login_time
+        from sys_user
+        <where>
+            <if test = "keyword != null and keyword != ''">
+                and (
+                username like concat('%', #{keyword}, '%')
+                or phone like concat('%', #{keyword}, '%')
+                or nickname like concat('%', #{keyword}, '%')
+                )
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="listUserRoleCodes" resultType="com.ethercraft.vo.UserRoleCodeVO">
+        select sur.user_id,
+               sr.role_code
+        from sys_user_role sur
+        join sys_role sr on sur.role_id = sr.id
+        where sur.user_id in
+        <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+        and sr.status = 'ACTIVE'
+    </select>
 
     <insert id="createUser" parameterType="com.ethercraft.entity.User" useGeneratedKeys="true" keyProperty="id">
         insert into
         sys_user
         (username, password, nickname, email, phone, avatar, status)
-        values (#{username}, #{password}, #{nickname}, #{email}, #{phone}, #{avatar}, #{status});
+        values (#{username}, #{password}, #{nickname}, #{email}, #{phone}, #{avatar}, #{status})
     </insert>
 
-    <insert id="createUserRole">
+    <insert id="insertUserRoles">
         insert into
         sys_user_role(user_id, role_id)
         values

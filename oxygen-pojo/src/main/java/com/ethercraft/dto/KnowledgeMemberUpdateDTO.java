@@ -9,6 +9,8 @@ import lombok.Data;
 @Schema(description = "空间成员角色修改请求")
 public class KnowledgeMemberUpdateDTO {
 
-    SpaceRole spaceRole;
+    // 空间角色
+    @Schema(description = "空间角色")
+    private SpaceRole spaceRole;
 
 }

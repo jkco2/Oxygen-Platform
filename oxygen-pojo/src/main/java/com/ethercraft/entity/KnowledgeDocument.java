@@ -68,8 +68,8 @@ public class KnowledgeDocument {
     @Schema(description = "更新时间")
     private LocalDateTime updateTime;
 
-    // 逻辑删除标记
-    @Schema(description = "逻辑删除标记")
+    // 逻辑删除预留字段，当前业务暂不使用
+    @Schema(description = "逻辑删除预留字段，当前业务暂不使用")
     private Boolean deleted;
 
 }

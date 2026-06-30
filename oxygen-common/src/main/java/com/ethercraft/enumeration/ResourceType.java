@@ -7,5 +7,7 @@ public enum ResourceType {
     SPACE,
     KB,
     ARTICLE,
-    DOCUMENT
+    DOCUMENT,
+    AUDIT,
+    DASHBOARD
 }

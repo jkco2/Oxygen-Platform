@@ -60,7 +60,6 @@ public class AuthController {
         return Result.success();
     }
 
-
     @Operation(summary = "获取用户信息")
     @GetMapping("/me")
     public Result<UserMeVO> me() {

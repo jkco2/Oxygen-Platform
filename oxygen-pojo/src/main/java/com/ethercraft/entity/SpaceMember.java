@@ -20,6 +20,10 @@ public class SpaceMember {
     @Schema(description = "知识空间 ID")
     private Long spaceId;
 
+    // 用户 ID
+    @Schema(description = "用户 ID")
+    private Long userId;
+
     // 空间角色
     @Schema(description = "空间角色")
     private SpaceRole spaceRole;

@@ -33,7 +33,6 @@
         join sys_user_role sur
         on sr.id = sur.role_id
         where sur.user_id = #{userId}
-        and sr.deleted = 0
         and sr.status = 'ACTIVE';
     </select>
 
@@ -45,9 +44,7 @@
         join sys_user_role sur on srp.role_id = sur.role_id
         join sys_role sr on sr.id = sur.role_id
         where sur.user_id = #{userId}
-        and sp.deleted = 0
         and sp.status = 'ACTIVE'
-        and sr.deleted = 0
         and sr.status = 'ACTIVE';
     </select>
 

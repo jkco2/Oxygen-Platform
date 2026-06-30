@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
         User user = authMapper.getUserByUsername(userLoginDTO.getUsername());
 
         // 用户不存在
-        if (user == null || user.getDeleted()) {
+        if (user == null) {
             throw new BusinessException(ErrorCode.NONEXISTENT_USER);
         }
         // 用户被冻结
@@ -60,6 +60,7 @@ public class AuthServiceImpl implements AuthService {
         BeanUtils.copyProperties(user, userLoginVO);
         TokenVO tokenVO = new TokenVO();
         tokenVO.setAccessToken(token);
+        tokenVO.setTokenType("Bearer");
         tokenVO.setUserLoginVO(userLoginVO);
         tokenVO.setExpiresIn(jwtUtil.getExpire());
 

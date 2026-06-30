@@ -5,10 +5,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import com.ethercraft.enumeration.UserStatus;
 import lombok.Data;
 
-// 用于用户分页查询
+// 用于后台分页查询用户
 @Data
 @Schema(description = "用户分页查询请求")
-public class UserQueryDTO {
+public class UserPageQueryDTO {
 
     // 页码
     @Schema(description = "页码")
