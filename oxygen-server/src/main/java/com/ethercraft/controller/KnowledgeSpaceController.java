@@ -52,14 +52,14 @@ public class KnowledgeSpaceController {
 
     @Operation(summary = "查询空间详情")
     @GetMapping("/{spaceId}")
-    @PreAuthorize(PermissionCodes.Expr.SPACE_VIEW)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_SPACE_VIEW)
     public Result<KnowledgeSpace> getKnowledgeSpace(@PathVariable Long spaceId) {
         return Result.success(knowledgeSpaceService.getKnowledgeSpaceById(spaceId));
     }
 
     @Operation(summary = "修改空间")
     @PutMapping("/{spaceId}")
-    @PreAuthorize(PermissionCodes.Expr.SPACE_UPDATE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_SPACE_UPDATE)
     public Result<Void> updateKnowledgeSpace(@PathVariable Long spaceId, @RequestBody KnowledgeSpaceUpdateDTO updateDTO) {
         knowledgeSpaceService.updateKnowledgeSpace(spaceId, updateDTO);
         return Result.success();
@@ -67,7 +67,7 @@ public class KnowledgeSpaceController {
 
     @Operation(summary = "删除空间")
     @DeleteMapping("/{spaceId}")
-    @PreAuthorize(PermissionCodes.Expr.SPACE_DELETE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_SPACE_DELETE)
     public Result<Void> deleteKnowledgeSpace(@PathVariable Long spaceId) {
         knowledgeSpaceService.deleteKnowledgeSpace(spaceId);
         return Result.success();

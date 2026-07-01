@@ -1,9 +1,13 @@
--- 初始化角色、权限与管理员账号
--- permission_code 需与 PermissionCodes 常量类保持一致
+-- Initial roles, permissions, and admin account.
+-- permission_code must stay consistent with PermissionCodes.
 
-INSERT INTO sys_role (id, role_code, role_name, description, status)
-VALUES (1, 'SYSTEM_ADMIN', '系统管理员', '拥有全部系统级权限', 'ACTIVE'),
-       (2, 'MEMBER', '普通成员', '普通注册用户', 'ACTIVE');
+INSERT INTO sys_role (id, role_code, role_name, description, scope_type, status)
+VALUES (1, 'SYSTEM_ADMIN', '系统管理员', '拥有全部全局权限，可穿透所有 scope', 'GLOBAL', 'ACTIVE'),
+       (2, 'MEMBER', '普通成员', '普通注册用户，拥有基础全局入口权限', 'GLOBAL', 'ACTIVE'),
+       (3, 'SPACE_OWNER', '空间所有者', '拥有空间内全部权限', 'SPACE', 'ACTIVE'),
+       (4, 'SPACE_ADMIN', '空间管理员', '管理空间内容和成员，不删除空间', 'SPACE', 'ACTIVE'),
+       (5, 'SPACE_EDITOR', '空间编辑者', '编辑空间内知识内容', 'SPACE', 'ACTIVE'),
+       (6, 'SPACE_VIEWER', '空间浏览者', '查看空间内知识内容', 'SPACE', 'ACTIVE');
 
 INSERT INTO sys_permission (id, permission_code, permission_name, resource_type, description, status)
 VALUES (1, 'user:view', '查看用户', 'USER', '查看用户列表和详情', 'ACTIVE'),
@@ -33,29 +37,62 @@ VALUES (1, 'user:view', '查看用户', 'USER', '查看用户列表和详情', '
        (25, 'document:manage', '管理文档', 'DOCUMENT', '上传、重新解析、删除文档', 'ACTIVE'),
        (26, 'tag:manage', '管理标签', 'SPACE', '创建、查看、删除空间标签', 'ACTIVE');
 
--- 系统管理员拥有全部权限
+-- Global administrator has every global permission and can pass scoped checks.
 INSERT INTO sys_role_permission (role_id, permission_id)
 SELECT 1, id
 FROM sys_permission;
 
--- 普通成员：知识库业务权限，不含后台管理与空间删除/成员管理
+-- Normal members keep only global entry permissions. Space content permissions are scoped.
 INSERT INTO sys_role_permission (role_id, permission_id)
 VALUES (2, 7),
-       (2, 10),
-       (2, 11),
-       (2, 13),
-       (2, 15),
-       (2, 16),
-       (2, 17),
-       (2, 18),
-       (2, 19),
-       (2, 20),
-       (2, 21),
-       (2, 22),
-       (2, 23),
-       (2, 24),
-       (2, 25),
-       (2, 26);
+       (2, 10);
+
+INSERT INTO sys_role_permission (role_id, permission_id)
+SELECT 3, id
+FROM sys_permission
+WHERE permission_code in (
+    'space:view', 'space:update', 'space:delete',
+    'member:view', 'member:manage',
+    'kb:create', 'kb:view', 'kb:update', 'kb:delete',
+    'article:create', 'article:view', 'article:update', 'article:delete', 'article:publish',
+    'document:view', 'document:manage',
+    'tag:manage'
+);
+
+INSERT INTO sys_role_permission (role_id, permission_id)
+SELECT 4, id
+FROM sys_permission
+WHERE permission_code in (
+    'space:view', 'space:update',
+    'member:view', 'member:manage',
+    'kb:create', 'kb:view', 'kb:update', 'kb:delete',
+    'article:create', 'article:view', 'article:update', 'article:delete', 'article:publish',
+    'document:view', 'document:manage',
+    'tag:manage'
+);
+
+INSERT INTO sys_role_permission (role_id, permission_id)
+SELECT 5, id
+FROM sys_permission
+WHERE permission_code in (
+    'space:view',
+    'member:view',
+    'kb:view',
+    'article:create', 'article:view', 'article:update', 'article:publish',
+    'document:view', 'document:manage',
+    'tag:manage'
+);
+
+INSERT INTO sys_role_permission (role_id, permission_id)
+SELECT 6, id
+FROM sys_permission
+WHERE permission_code in (
+    'space:view',
+    'member:view',
+    'kb:view',
+    'article:view',
+    'document:view'
+);
 
 INSERT INTO sys_user (id, username, password, nickname, email, phone, avatar, status, last_login_time)
 VALUES (1,
@@ -68,5 +105,5 @@ VALUES (1,
         'ACTIVE',
         '2026-06-24 23:18:29');
 
-INSERT INTO sys_user_role (user_id, role_id)
-VALUES (1, 1);
+INSERT INTO sys_user_role (user_id, role_id, scope_type, scope_id)
+VALUES (1, 1, 'GLOBAL', null);

@@ -1,16 +1,13 @@
 package com.ethercraft.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import com.ethercraft.enumeration.SpaceRole;
 import lombok.Data;
 
 @Data
 @Schema(description = "空间成员角色修改请求")
 public class KnowledgeMemberUpdateDTO {
 
-    // 空间角色
-    @Schema(description = "空间角色")
-    private SpaceRole spaceRole;
+    @Schema(description = "空间范围角色 ID")
+    private Long roleId;
 
 }

@@ -25,7 +25,7 @@ public class SpaceMemberController {
 
     @Operation(summary = "查询空间成员")
     @GetMapping
-    @PreAuthorize(PermissionCodes.Expr.MEMBER_VIEW)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_MEMBER_VIEW)
     public Result<PageResult<SpaceMember>> pageSpaceMembers(
             @PathVariable Long spaceId,
             @RequestParam(defaultValue = "1") Integer page,
@@ -35,7 +35,7 @@ public class SpaceMemberController {
 
     @Operation(summary = "添加空间成员")
     @PostMapping
-    @PreAuthorize(PermissionCodes.Expr.MEMBER_MANAGE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_MEMBER_MANAGE)
     public Result<Void> addSpaceMember(@PathVariable Long spaceId, @RequestBody SpaceMemberAddDTO addDTO) {
         spaceMemberService.addSpaceMember(spaceId, addDTO);
         return Result.success();
@@ -43,7 +43,7 @@ public class SpaceMemberController {
 
     @Operation(summary = "修改成员空间角色")
     @PutMapping("/{memberId}")
-    @PreAuthorize(PermissionCodes.Expr.MEMBER_MANAGE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_MEMBER_MANAGE)
     public Result<Void> updateSpaceMember(
             @PathVariable Long spaceId,
             @PathVariable Long memberId,
@@ -54,7 +54,7 @@ public class SpaceMemberController {
 
     @Operation(summary = "移除空间成员")
     @DeleteMapping("/{memberId}")
-    @PreAuthorize(PermissionCodes.Expr.MEMBER_MANAGE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_MEMBER_MANAGE)
     public Result<Void> deleteSpaceMember(@PathVariable Long spaceId, @PathVariable Long memberId) {
         spaceMemberService.deleteSpaceMember(spaceId, memberId);
         return Result.success();

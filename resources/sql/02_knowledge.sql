@@ -23,7 +23,6 @@ CREATE TABLE knowledge_space_member (
     id          BIGINT      NOT NULL AUTO_INCREMENT,
     space_id    BIGINT      NOT NULL,
     user_id     BIGINT      NOT NULL,
-    space_role  VARCHAR(32) NOT NULL,
     status      VARCHAR(32) NOT NULL DEFAULT 'NORMAL',
     join_time   DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     create_time DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,

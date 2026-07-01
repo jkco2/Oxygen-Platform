@@ -66,6 +66,8 @@
         <foreach collection="userIds" item="userId" open="(" separator="," close=")">
             #{userId}
         </foreach>
+        and sur.scope_type = 'GLOBAL'
+        and sur.scope_id is null
         and sr.status = 'ACTIVE'
     </select>
 
@@ -78,10 +80,10 @@
 
     <insert id="insertUserRoles">
         insert into
-        sys_user_role(user_id, role_id)
+        sys_user_role(user_id, role_id, scope_type, scope_id)
         values
             <foreach collection="roleIds" item="roleId" separator=",">
-                (#{userId}, #{roleId})
+                (#{userId}, #{roleId}, 'GLOBAL', null)
             </foreach>
     </insert>
 

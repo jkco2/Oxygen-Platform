@@ -23,7 +23,7 @@ public class DocumentController {
 
     @Operation(summary = "查询文档列表")
     @GetMapping
-    @PreAuthorize(PermissionCodes.Expr.DOCUMENT_VIEW)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_DOCUMENT_VIEW)
     public Result<PageResult<KnowledgeDocument>> pageDocuments(
             @PathVariable Long kbId,
             @RequestParam(defaultValue = "1") Integer page,
@@ -33,14 +33,14 @@ public class DocumentController {
 
     @Operation(summary = "查询文档详情")
     @GetMapping("/{documentId}")
-    @PreAuthorize(PermissionCodes.Expr.DOCUMENT_VIEW)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_DOCUMENT_VIEW)
     public Result<KnowledgeDocument> getDocument(@PathVariable Long kbId, @PathVariable Long documentId) {
         return Result.success(documentService.getDocumentById(kbId, documentId));
     }
 
     @Operation(summary = "重新解析文档")
     @PostMapping("/{documentId}/reparse")
-    @PreAuthorize(PermissionCodes.Expr.DOCUMENT_MANAGE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_DOCUMENT_MANAGE)
     public Result<Void> reparseDocument(@PathVariable Long kbId, @PathVariable Long documentId) {
         documentService.reparseDocument(kbId, documentId);
         return Result.success();
@@ -48,7 +48,7 @@ public class DocumentController {
 
     @Operation(summary = "删除文档")
     @DeleteMapping("/{documentId}")
-    @PreAuthorize(PermissionCodes.Expr.DOCUMENT_MANAGE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_DOCUMENT_MANAGE)
     public Result<Void> deleteDocument(@PathVariable Long kbId, @PathVariable Long documentId) {
         documentService.deleteDocument(kbId, documentId);
         return Result.success();

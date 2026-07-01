@@ -23,7 +23,7 @@ public class TagController {
 
     @Operation(summary = "创建标签")
     @PostMapping
-    @PreAuthorize(PermissionCodes.Expr.TAG_MANAGE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_TAG_MANAGE)
     public Result<Void> createTag(@PathVariable Long spaceId, @RequestBody KnowledgeTag tag) {
         tagService.createTag(spaceId, tag);
         return Result.success();
@@ -31,14 +31,14 @@ public class TagController {
 
     @Operation(summary = "查询空间标签")
     @GetMapping
-    @PreAuthorize(PermissionCodes.Expr.TAG_MANAGE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_TAG_MANAGE)
     public Result<PageResult<KnowledgeTag>> listTags(@PathVariable Long spaceId) {
         return Result.success(tagService.listTags(spaceId));
     }
 
     @Operation(summary = "删除标签")
     @DeleteMapping("/{tagId}")
-    @PreAuthorize(PermissionCodes.Expr.TAG_MANAGE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_TAG_MANAGE)
     public Result<Void> deleteTag(@PathVariable Long spaceId, @PathVariable Long tagId) {
         tagService.deleteTag(spaceId, tagId);
         return Result.success();

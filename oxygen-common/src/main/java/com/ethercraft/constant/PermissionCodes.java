@@ -94,5 +94,41 @@ public final class PermissionCodes {
 
         public static final String AUDIT_VIEW = "hasAuthority('" + PermissionCodes.AUDIT_VIEW + "')";
         public static final String DASHBOARD_VIEW = "hasAuthority('" + PermissionCodes.DASHBOARD_VIEW + "')";
+
+        public static final String SCOPED_SPACE_VIEW =
+                "@scopeAuth.hasPermission('" + PermissionCodes.SPACE_VIEW + "', T(com.ethercraft.enumeration.ScopeType).SPACE, #spaceId)";
+        public static final String SCOPED_SPACE_UPDATE =
+                "@scopeAuth.hasPermission('" + PermissionCodes.SPACE_UPDATE + "', T(com.ethercraft.enumeration.ScopeType).SPACE, #spaceId)";
+        public static final String SCOPED_SPACE_DELETE =
+                "@scopeAuth.hasPermission('" + PermissionCodes.SPACE_DELETE + "', T(com.ethercraft.enumeration.ScopeType).SPACE, #spaceId)";
+        public static final String SCOPED_MEMBER_VIEW =
+                "@scopeAuth.hasPermission('" + PermissionCodes.MEMBER_VIEW + "', T(com.ethercraft.enumeration.ScopeType).SPACE, #spaceId)";
+        public static final String SCOPED_MEMBER_MANAGE =
+                "@scopeAuth.hasPermission('" + PermissionCodes.MEMBER_MANAGE + "', T(com.ethercraft.enumeration.ScopeType).SPACE, #spaceId)";
+        public static final String SCOPED_KB_CREATE =
+                "@scopeAuth.hasPermission('" + PermissionCodes.KB_CREATE + "', T(com.ethercraft.enumeration.ScopeType).SPACE, #spaceId)";
+        public static final String SCOPED_KB_VIEW =
+                "@scopeAuth.hasPermission('" + PermissionCodes.KB_VIEW + "', T(com.ethercraft.enumeration.ScopeType).SPACE, #spaceId)";
+        public static final String SCOPED_KB_UPDATE =
+                "@scopeAuth.hasPermission('" + PermissionCodes.KB_UPDATE + "', T(com.ethercraft.enumeration.ScopeType).SPACE, #spaceId)";
+        public static final String SCOPED_KB_DELETE =
+                "@scopeAuth.hasPermission('" + PermissionCodes.KB_DELETE + "', T(com.ethercraft.enumeration.ScopeType).SPACE, #spaceId)";
+        public static final String SCOPED_TAG_MANAGE =
+                "@scopeAuth.hasPermission('" + PermissionCodes.TAG_MANAGE + "', T(com.ethercraft.enumeration.ScopeType).SPACE, #spaceId)";
+
+        public static final String SCOPED_ARTICLE_CREATE =
+                "@scopeAuth.hasPermissionForKnowledgeBase('" + PermissionCodes.ARTICLE_CREATE + "', #kbId)";
+        public static final String SCOPED_ARTICLE_VIEW =
+                "@scopeAuth.hasPermissionForKnowledgeBase('" + PermissionCodes.ARTICLE_VIEW + "', #kbId)";
+        public static final String SCOPED_ARTICLE_UPDATE =
+                "@scopeAuth.hasPermissionForKnowledgeBase('" + PermissionCodes.ARTICLE_UPDATE + "', #kbId)";
+        public static final String SCOPED_ARTICLE_DELETE =
+                "@scopeAuth.hasPermissionForKnowledgeBase('" + PermissionCodes.ARTICLE_DELETE + "', #kbId)";
+        public static final String SCOPED_ARTICLE_PUBLISH =
+                "@scopeAuth.hasPermissionForKnowledgeBase('" + PermissionCodes.ARTICLE_PUBLISH + "', #kbId)";
+        public static final String SCOPED_DOCUMENT_VIEW =
+                "@scopeAuth.hasPermissionForKnowledgeBase('" + PermissionCodes.DOCUMENT_VIEW + "', #kbId)";
+        public static final String SCOPED_DOCUMENT_MANAGE =
+                "@scopeAuth.hasPermissionForKnowledgeBase('" + PermissionCodes.DOCUMENT_MANAGE + "', #kbId)";
     }
 }

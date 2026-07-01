@@ -25,7 +25,7 @@ public class KnowledgeBaseController {
 
     @Operation(summary = "创建知识库")
     @PostMapping
-    @PreAuthorize(PermissionCodes.Expr.KB_CREATE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_KB_CREATE)
     public Result<Void> createKnowledgeBase(@PathVariable Long spaceId, @RequestBody KnowledgeBaseCreateDTO createDTO) {
         knowledgeBaseService.createKnowledgeBase(spaceId, createDTO);
         return Result.success();
@@ -33,7 +33,7 @@ public class KnowledgeBaseController {
 
     @Operation(summary = "查询空间下知识库")
     @GetMapping
-    @PreAuthorize(PermissionCodes.Expr.KB_VIEW)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_KB_VIEW)
     public Result<PageResult<KnowledgeBase>> pageKnowledgeBases(
             @PathVariable Long spaceId,
             @RequestParam(defaultValue = "1") Integer page,
@@ -43,14 +43,14 @@ public class KnowledgeBaseController {
 
     @Operation(summary = "查询知识库详情")
     @GetMapping("/{kbId}")
-    @PreAuthorize(PermissionCodes.Expr.KB_VIEW)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_KB_VIEW)
     public Result<KnowledgeBase> getKnowledgeBase(@PathVariable Long spaceId, @PathVariable Long kbId) {
         return Result.success(knowledgeBaseService.getKnowledgeBaseById(spaceId, kbId));
     }
 
     @Operation(summary = "修改知识库")
     @PutMapping("/{kbId}")
-    @PreAuthorize(PermissionCodes.Expr.KB_UPDATE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_KB_UPDATE)
     public Result<Void> updateKnowledgeBase(
             @PathVariable Long spaceId,
             @PathVariable Long kbId,
@@ -61,7 +61,7 @@ public class KnowledgeBaseController {
 
     @Operation(summary = "删除知识库")
     @DeleteMapping("/{kbId}")
-    @PreAuthorize(PermissionCodes.Expr.KB_DELETE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_KB_DELETE)
     public Result<Void> deleteKnowledgeBase(@PathVariable Long spaceId, @PathVariable Long kbId) {
         knowledgeBaseService.deleteKnowledgeBase(spaceId, kbId);
         return Result.success();

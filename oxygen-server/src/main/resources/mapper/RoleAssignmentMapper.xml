@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ethercraft.mapper.RoleAssignmentMapper">
+
+    <select id="hasGlobalPermission" resultType="boolean">
+        select count(1) > 0
+        from sys_user_role sur
+        join sys_role sr on sr.id = sur.role_id
+        join sys_role_permission srp on srp.role_id = sr.id
+        join sys_permission sp on sp.id = srp.permission_id
+        where sur.user_id = #{userId}
+          and sur.scope_type = 'GLOBAL'
+          and sur.scope_id is null
+          and sr.scope_type = 'GLOBAL'
+          and sr.deleted = 0
+          and sr.status = 'ACTIVE'
+          and sp.permission_code = #{permissionCode}
+          and sp.deleted = 0
+          and sp.status = 'ACTIVE'
+    </select>
+
+    <select id="hasScopedPermission" resultType="boolean">
+        select count(1) > 0
+        from sys_user_role sur
+        join sys_role sr on sr.id = sur.role_id
+        join sys_role_permission srp on srp.role_id = sr.id
+        join sys_permission sp on sp.id = srp.permission_id
+        where sur.user_id = #{userId}
+          and sur.scope_type = #{scopeType}
+          and sur.scope_id = #{scopeId}
+          and sr.scope_type = #{scopeType}
+          and sr.deleted = 0
+          and sr.status = 'ACTIVE'
+          and sp.permission_code = #{permissionCode}
+          and sp.deleted = 0
+          and sp.status = 'ACTIVE'
+    </select>
+
+</mapper>

@@ -26,7 +26,7 @@ public class KnowledgeArticleController {
 
     @Operation(summary = "创建知识条目")
     @PostMapping
-    @PreAuthorize(PermissionCodes.Expr.ARTICLE_CREATE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_ARTICLE_CREATE)
     public Result<Void> createKnowledgeArticle(@PathVariable Long kbId, @RequestBody KnowledgeArticleCreateDTO createDTO) {
         knowledgeArticleService.createKnowledgeArticle(kbId, createDTO);
         return Result.success();
@@ -34,7 +34,7 @@ public class KnowledgeArticleController {
 
     @Operation(summary = "分页查询知识条目")
     @GetMapping
-    @PreAuthorize(PermissionCodes.Expr.ARTICLE_VIEW)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_ARTICLE_VIEW)
     public Result<PageResult<KnowledgeArticle>> pageKnowledgeArticles(
             @PathVariable Long kbId,
             @RequestParam(defaultValue = "1") Integer page,
@@ -46,14 +46,14 @@ public class KnowledgeArticleController {
 
     @Operation(summary = "查询知识条目详情")
     @GetMapping("/{articleId}")
-    @PreAuthorize(PermissionCodes.Expr.ARTICLE_VIEW)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_ARTICLE_VIEW)
     public Result<KnowledgeArticle> getKnowledgeArticle(@PathVariable Long kbId, @PathVariable Long articleId) {
         return Result.success(knowledgeArticleService.getKnowledgeArticleById(kbId, articleId));
     }
 
     @Operation(summary = "修改知识条目")
     @PutMapping("/{articleId}")
-    @PreAuthorize(PermissionCodes.Expr.ARTICLE_UPDATE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_ARTICLE_UPDATE)
     public Result<Void> updateKnowledgeArticle(
             @PathVariable Long kbId,
             @PathVariable Long articleId,
@@ -64,7 +64,7 @@ public class KnowledgeArticleController {
 
     @Operation(summary = "发布知识条目")
     @PostMapping("/{articleId}/publish")
-    @PreAuthorize(PermissionCodes.Expr.ARTICLE_PUBLISH)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_ARTICLE_PUBLISH)
     public Result<Void> publishKnowledgeArticle(@PathVariable Long kbId, @PathVariable Long articleId) {
         knowledgeArticleService.publishKnowledgeArticle(kbId, articleId);
         return Result.success();
@@ -72,7 +72,7 @@ public class KnowledgeArticleController {
 
     @Operation(summary = "下线知识条目")
     @PostMapping("/{articleId}/offline")
-    @PreAuthorize(PermissionCodes.Expr.ARTICLE_PUBLISH)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_ARTICLE_PUBLISH)
     public Result<Void> offlineKnowledgeArticle(@PathVariable Long kbId, @PathVariable Long articleId) {
         knowledgeArticleService.offlineKnowledgeArticle(kbId, articleId);
         return Result.success();
@@ -80,7 +80,7 @@ public class KnowledgeArticleController {
 
     @Operation(summary = "删除知识条目")
     @DeleteMapping("/{articleId}")
-    @PreAuthorize(PermissionCodes.Expr.ARTICLE_DELETE)
+    @PreAuthorize(PermissionCodes.Expr.SCOPED_ARTICLE_DELETE)
     public Result<Void> deleteKnowledgeArticle(@PathVariable Long kbId, @PathVariable Long articleId) {
         knowledgeArticleService.deleteKnowledgeArticle(kbId, articleId);
         return Result.success();
